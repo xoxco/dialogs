@@ -8,12 +8,6 @@ Dialogs uses Bootstrap-compatible markup, meaning it should play nicely with Boo
  
 ```
 var dialog = new Dialog($content,[buttons],{options});
-$(dialog).on('opened',callback);
-$(dialog).on('closed',callback);
-$(dialog).on('shown',callback);
-$(dialog).on('hidden',callback);
-$(dialog).on('button',callback(button));
-$(dialog).on('<specific_button_click>',callback);
 ```
  
 ### Basic usage:
@@ -52,7 +46,9 @@ var dialog = new Dialog('Hello!',[
 Dialogs.js includes a few common buttons that can be specified using simple labels, but which will result in more fully functional buttons.
 
 'ok' - results in a button with an "OK" label that, when clicked, closes the dialog.
+
 'cancel' - results in a button with "Cancel" label that, when clicked, closes the dialog.
+
 'back' - results in a button with "< Back" label that, when clicked, will go back to the previous dialog in the chain.
 
 ### Mixing Button Types
@@ -87,9 +83,38 @@ new Dialog('Hello!',[],options);
 
 ```
 
-
-
 ### Events
 
+Dialogs throw a few handy events, watchable using jQuery's event handling system.
+
+opened - dialog has been created and appended to the DOM and is visible to the user.
+
+closed - dialog has been closed and removed from the DOM.
+
+shown - dialog has been made visible after having been invisible, likely as part of a chain of dialogs
+
+hidden - dialog has been made invisible, likely as part of a chain of dialogs.
+
+```
+$(dialog).on('opened',callback);
+$(dialog).on('closed',callback);
+$(dialog).on('shown',callback);
+$(dialog).on('hidden',callback);
+```
+
+Dialogs throw 2 events whenever one of the buttons is clicked.
+
+One is a generic "button" event, which will pass a data representation of the clicked button to the callback:
+```
+$(dialog).on('button',callback(button));
+```
+
+The second is a specific event named after the button itself. Dialogs.js will use a tokenized version of the button's label to create the event (IE, "My Cool Button!!" becomes "my_cool_button")
+
+```
+var dialog = new Dialog('Hello',["I'm Done","Save Document >"]);
+$(dialog).on('im_done',callback);
+$(dialog).on('save_document',callback);
+```
 
 	
