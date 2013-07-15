@@ -83,6 +83,29 @@ new Dialog('Hello!',[],options);
 
 ```
 
+
+### Interacting with Dialogs
+
+```
+var dialog = new Dialog('Hello');
+
+// close a dialog
+dialog.close();
+
+// open a dialog
+dialog.open();
+
+// re-center a dialog
+dialog.center();
+
+// hide but do not close a dialog
+dialog.hide();
+
+// show a hidden dialog
+dialog.show();
+```
+
+
 ### Events
 
 Dialogs throw a few handy events, watchable using jQuery's event handling system.
@@ -117,4 +140,26 @@ $(dialog).on('im_done',callback);
 $(dialog).on('save_document',callback);
 ```
 
-	
+### Chaining Dialogs
+
+One dialog can open another dialog, and those dialogs become inherently "chained" to one another. Child dialogs will have a back button which will lead to their parent dialogs, and closing a child dialog will cause the parent dialog to reopen. Similarly, closing a parent dialog will close all child dialogs.
+
+This is helpful when creating multi-stage interactions that may require the user to navigate forward and backwards through several steps.
+
+Chained dialogs are created using the .dialog() method on an existing dialog:
+
+```
+var dialog = new Dialog("Let's take the next step",['Next']);
+$(dialog).on('next',function() {
+	var step2 = this.dialog('This is step 2!',['back']);
+});
+```
+
+Since the default behavior of a child dialog is to open its parent as if the back button had been clicked, an additional method, .done(), is provided to close the child and all parent dialogs in the chain.
+```
+var dialog = new Dialog("Let's take the next step",['Next']);
+$(dialog).on('next',function() {
+	var step2 = this.dialog('This is step 2!',['back','Done']);
+	$(step2).on('done',function() { this.done(); }); // causes all dialogs to close
+});
+```
