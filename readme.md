@@ -4,6 +4,8 @@ Easy to use dialog boxes for HTML5 applications.
 
 Dialogs uses Bootstrap-compatible markup, meaning it should play nicely with Bootstrap and Bootstrap-compatible CSS libraries like Flat UI.
 
+[View Demo](http://xoxco.com/projects/code/dialogs/demo.html)
+
 ## Usage
  
 ```
