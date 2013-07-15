@@ -2,7 +2,19 @@
 
 Easy to use dialog boxes for HTML5 applications.
 
+Dialogs uses Bootstrap-compatible markup, meaning it should play nicely with Bootstrap and Bootstrap-compatible CSS libraries like Flat UI.
+
 ## Usage
+ 
+```
+var dialog = new Dialog($content,[buttons],{options});
+$(dialog).on('opened',callback);
+$(dialog).on('closed',callback);
+$(dialog).on('shown',callback);
+$(dialog).on('hidden',callback);
+$(dialog).on('button',callback(button));
+$(dialog).on('<specific_button_click>',callback);
+```
  
 ### Basic usage:
 Open a dialog box with a message and a simple "OK" button that closes the dialog.
@@ -57,9 +69,27 @@ var dialog = new Dialog('Hello!',[
 	'No',
 	'cancel'
 ]);
+```
 
-*Options*
+### Options
 
+Dialog behavior and appearance can be modified by specifying options.
+
+```
+var options = {
+	close: true,	// create a close button in the upper right corner
+	title: '...',	// specify a title for the dialog
+	width: 500,		// specifiy a fixed width for the dialog
+	height: 200	// specifiy a fixed height for the dialog. May conflict with some CSS libraries!
+}
+
+new Dialog('Hello!',[],options);
+
+```
+
+
+
+### Events
 
 
 	
