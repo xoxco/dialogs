@@ -3,15 +3,15 @@
 Easy to use dialog boxes for HTML5 applications.
 
 ## Usage
-
-*Basic usage:*
+ 
+### Basic usage:
 Open a dialog box with a message and a simple "OK" button that closes the dialog.
 
 ```
 var dialog = new Dialog('Hello!');
 ```
 
-*Custom Buttons:*
+### Custom Buttons:
 
 One or more buttons can be added to a dialog by passing in an array describing said buttons.
 Simple buttons can be specified with a label only, though information such as additional CSS classes and default click-handlers can be provided as well.
@@ -35,7 +35,7 @@ var dialog = new Dialog('Hello!',[
 ]);
 ```
 
-*Common Button Shortcodes:*
+### Common Button Shortcodes:
 
 Dialogs.js includes a few common buttons that can be specified using simple labels, but which will result in more fully functional buttons.
 
@@ -43,7 +43,7 @@ Dialogs.js includes a few common buttons that can be specified using simple labe
 'cancel' - results in a button with "Cancel" label that, when clicked, closes the dialog.
 'back' - results in a button with "< Back" label that, when clicked, will go back to the previous dialog in the chain.
 
-*Mixing Button Types*
+### Mixing Button Types
 
 You can do this. Its OK!
 
