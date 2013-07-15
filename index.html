@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dialogs.js</title>
+<!-- 		<link rel="stylesheet" href="http://twitter.github.io/bootstrap/assets/css/bootstrap.css" /> -->
+		<link rel="stylesheet" href="http://designmodo.github.io/Flat-UI/css/flat-ui.css" />
+
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<style>
+		</style>
+		<script type="text/javascript" src="http://xoxco.com/js/jquery.min.js"></script>
+		<script type="text/javascript" src="dialog.js"></script>
+		<script type="text/javascript">
+
+		
+			$(function() {
+				
+				console.log('BORT>>>');
+				var lipsem = '<p>Ad labore kale chips Wes Anderson fingerstache Schlitz, mumblecore sint blue bottle leggings eiusmod bitters cornhole. Lo-fi gentrify sustainable four loko Neutra, literally pickled. Tote bag thundercats asymmetrical, jean shorts bitters narwhal esse leggings. 90\'s consectetur cardigan, whatever stumptown Bushwick chillwave 8-bit synth Marfa sapiente dolor. Minim Brooklyn thundercats Cosby sweater messenger bag viral. Etsy ut bespoke duis voluptate pug. Et cornhole fap, minim Terry Richardson ea shoreditch fugiat culpa.</p><p>Ad labore kale chips Wes Anderson fingerstache Schlitz, mumblecore sint blue bottle leggings eiusmod bitters cornhole. Lo-fi gentrify sustainable four loko Neutra, literally pickled. Tote bag thundercats asymmetrical, jean shorts bitters narwhal esse leggings. 90\'s consectetur cardigan, whatever stumptown Bushwick chillwave 8-bit synth Marfa sapiente dolor. Minim Brooklyn thundercats Cosby sweater messenger bag viral. Etsy ut bespoke duis voluptate pug. Et cornhole fap, minim Terry Richardson ea shoreditch fugiat culpa.</p><p>Ad labore kale chips Wes Anderson fingerstache Schlitz, mumblecore sint blue bottle leggings eiusmod bitters cornhole. Lo-fi gentrify sustainable four loko Neutra, literally pickled. Tote bag thundercats asymmetrical, jean shorts bitters narwhal esse leggings. 90\'s consectetur cardigan, whatever stumptown Bushwick chillwave 8-bit synth Marfa sapiente dolor. Minim Brooklyn thundercats Cosby sweater messenger bag viral. Etsy ut bespoke duis voluptate pug. Et cornhole fap, minim Terry Richardson ea shoreditch fugiat culpa.</p>';
+				
+				var content = '<form><p><label>Email</label><input type="email" /></p><p><label>Password</label><input type="password" /></p></form>';
+				window.d1 = new Dialog(content,[
+					'cancel',
+					{
+						label: 'Next <span class="fui-arrow-right"></span>',
+						class: 'btn-primary',
+						click: function() { 
+							if (!this.ok) { 
+							
+								// chain dialogs together with automatic back buttons
+								this.ok=this.dialog('Hey ok! How is it going now?',['back','ok','cancel'],{
+									chained:true,
+									title: 'Dialog 2',
+/*
+									width:500,
+									height:200
+*/
+								}); 
+								$(this.ok).on('ok',function() {
+									console.log('CLICKED OK ON INTERIOR DIALOG');
+									
+									this.third = this.dialog('Woo!',[],{
+										title: 'Dialog 3',
+										chained: true										
+									});
+								});
+								$(this.ok).on('back',function() {
+									console.log('CLICKED BACK ON INTERIOR DIALOG');
+								});
+
+							} else {
+							 	this.ok.open(); 
+							} 
+						}
+					},'foo'
+				],{
+					title: 'Dialog.js',
+					width: 500,
+					height: 400
+				});
+				
+				// bind to a click event this way
+				$(d1).on('foo',function() {
+					console.log('Foo!');
+				});
+
+				$(d1).on('next',function() {
+					console.log('Next!');
+				});
+				
+				$(d1).on('closed',function() {
+					console.log('closed');
+					var d2 = new Dialog('Whoa! You can\'t close the dialog!!!');
+					$(d2).on('closed',function() { d1.open(); });
+				});
+				
+			});
+		</script>
+	</head>
+	<body>
+		<div id="everything">
+			<h1>Hello!</h1>
+			<h1>Hello!</h1>
+
+		</div>
+	</body>
+</html>

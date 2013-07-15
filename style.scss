@@ -1,0 +1,119 @@
+	$footer_color: #34495e;
+	$accent_color: #1abc9c;
+			
+			.modal {
+				position: absolute;
+				border: 2px solid #333;
+				width: 250px;
+				background: #FFF;
+				margin: 10px;
+				border-radius: 6px;
+				
+				max-height: 600px;
+				min-width: 280px;
+				min-height: 200px;
+				
+				.modal-header {
+					position: relative;
+					top: 0;
+					left: 0;
+					right: 0;
+					padding: 1em;
+
+					button {
+						background: none;
+						border: none;
+						padding:0;
+						margin:0;
+					}
+					button.close {
+						float: right;
+						display: inline-block;
+						margin: 0;
+						width: 24px;
+						font-size: 24px;						
+						font-family: 'Flat-UI-Icons';				
+
+						&:before {
+							content: "\e00b";
+						}
+
+						&:hover {
+
+							&:before {
+								color: $accent_color;
+							}
+							
+						}
+
+					}
+					
+
+					button.back {
+						float: left;
+						display: inline-block;
+						margin: 0;
+						width: 24px;
+						font-size: 24px;	
+						margin-right: 0.5em;					
+						font-family: 'Flat-UI-Icons';				
+
+						&:before {
+							content: "\e02d";
+						}
+						
+						&:hover {
+
+							&:before {
+								color: $accent_color;
+							}
+							
+						}
+
+					}
+					
+
+					&:after {
+						content: '';
+						display: block;
+						width: 100%;
+						height: 0;
+						clear: both;
+					}
+					
+				}
+				
+				
+				.modal-footer {
+					
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;					
+					background: $footer_color;
+					text-align: center;
+					padding: 1em;
+			
+
+				}
+				
+				.modal-body {
+					
+					overflow-y: scroll;		
+					padding: 0 1em;
+				}
+
+
+				
+			}
+			
+			
+			
+			.dialog_overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 100%;
+				background: rgba(0,0,0,0.5);
+			}
