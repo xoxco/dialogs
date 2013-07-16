@@ -65,6 +65,9 @@
 					
 					this.el = $('<div class="modal"><section><div class="modal-body">'+this.content+'</div></section></div>');
 					
+					if (this.options.class) {
+						$(this.el).addClass(this.options.class);
+					}
 					$(this.el).css('position','absolute');
 					$(this.el).css('margin',0);
 					
