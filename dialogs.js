@@ -23,6 +23,7 @@
 										overlay = $('<div class="dialog_overlay"></div>');							
 									}
 									$(overlay).appendTo('body');
+
 									
 								} else {
 									$(overlay).show();
@@ -39,7 +40,7 @@
 				})();
 				
 				var Dialog = function(content,buttons,options) {
-					console.log('D: ',content);
+					//console.log('D: ',content);
 				
 					this.children = [];
 					
@@ -47,12 +48,14 @@
 					
 					this.options = $.extend({
 						close: true,
+						header: true,
 						title:'&nbsp;'					
 					},options);
 
-					this.buttons = buttons || [];
+					this.buttons = buttons;
 												
-					if (!this.buttons.length) {
+					if (!this.buttons) {
+						this.buttons = [];
 						this.buttons.push('ok');
 					}
 										
@@ -65,36 +68,40 @@
 					$(this.el).css('position','absolute');
 					$(this.el).css('margin',0);
 					
-					
-					this.header = $('<header class="modal-header"/>');
-					$('<h3>'+this.options.title+'</h3>').prependTo(this.header);
-					if (this.options.close) {
-						this.close_button = $('<button class="close">&times;</button>');
-						$(this.close_button).prependTo(this.header);
-					}
-					if (this.options.chained) {
-						this.back_button = $('<button class="back"></button>');
-						$(this.back_button).prependTo(this.header);
-					}
-					
-					
-					$(this.el).prepend(this.header);
+					if (this.options.header) {
+						this.header = $('<header class="modal-header"/>');
+						$('<h3>'+this.options.title+'</h3>').prependTo(this.header);
+						if (this.options.close) {
+							this.close_button = $('<button class="close">&times;</button>');
+							$(this.close_button).prependTo(this.header);
+						}
+						if (this.options.chained) {
+							this.back_button = $('<button class="back"></button>');
+							$(this.back_button).prependTo(this.header);
+						}
+						$(this.el).prepend(this.header);
 
-					this.footer = $('<footer class="modal-footer" />');
+					}
 					
-					$(this.el).append(this.footer);
+					
 
-					for (var b in this.buttons) {
+					if (this.buttons.length) {
+						this.footer = $('<footer class="modal-footer" />');
 						
-						(function(button,dialog) {	
-
-							button.el = $('<button class="btn">'+button.label+'</button>');
-							if (button.class) {
-								$(button.el).addClass(button.class);
-							}
-							$(button.el).appendTo(dialog.footer);		
+						$(this.el).append(this.footer);
+		
+						for (var b in this.buttons) {
 							
-						})(this.buttons[b],this);
+							(function(button,dialog) {	
+	
+								button.el = $('<button class="btn">'+button.label+'</button>');
+								if (button.class) {
+									$(button.el).addClass(button.class);
+								}
+								$(button.el).appendTo(dialog.footer);		
+								
+							})(this.buttons[b],this);
+						}
 					}
 
 					if (this.options.width) {
@@ -179,7 +186,7 @@
 							});			
 						})(this.buttons[b],this);
 					}					
-					if (this.options.close) {
+					if (this.options.header && this.options.close) {
 						(function(dialog) {
 							dialog.close_button.on('click',function(e) { e.preventDefault(); dialog.close(); });
 							if (dialog.back_button) {
@@ -206,7 +213,16 @@
 					this.visible = true;
 					
 					if (this.options.height) {
-						$(this.el).find('.modal-body').css('max-height',(this.options.height-($(this.header).outerHeight()+$(this.footer).outerHeight()))+'px');
+						var target_height = this.options.height;
+						
+						if (this.header) {
+							target_height = target_height - $(this.header).outerHeight();
+						}						
+						if (this.footer) {
+							target_height = target_height - $(this.footer).outerHeight();
+						}
+						
+						$(this.el).find('.modal-body').css('max-height',target_height+'px');
 					}
 
 
