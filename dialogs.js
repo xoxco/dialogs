@@ -38,7 +38,7 @@
 					}
 					
 				})();
-				
+
 				var Dialog = function(content,buttons,options) {
 					//console.log('D: ',content);
 				
@@ -142,7 +142,7 @@
 								
 								case 'ok': 
 									this.buttons[b] = {
-										label: '<span class="fui-check-inverted"></span> OK',
+										label: 'OK',
 										class:'btn-primary',
 										click: function() {
 											this.done();
@@ -159,7 +159,7 @@
 									break;								
 								case 'back': 
 									this.buttons[b] = {
-										label: '<span class="fui-arrow-left"></span> Back',
+										label: '&lt; Back',
 										click: function() {
 											this.back();
 										}
