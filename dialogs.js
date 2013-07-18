@@ -63,13 +63,15 @@
 										
 					this.content = content;
 					
-					this.el = $('<div class="modal"><section><div class="modal-body">'+this.content+'</div></section></div>');
+					this.el = $('<div class="modal"></div>');
+					this.body = $('<div class="modal_content"><section><div class="modal-body">'+this.content+'</div></section></div>');
 					
 					if (this.options.class) {
 						$(this.el).addClass(this.options.class);
 					}
 					$(this.el).css('position','absolute');
 					$(this.el).css('margin',0);
+					$(this.el).append(this.body);
 					
 					if (this.options.header) {
 						this.header = $('<header class="modal-header"/>');
@@ -82,7 +84,7 @@
 							this.back_button = $('<button class="back"></button>');
 							$(this.back_button).prependTo(this.header);
 						}
-						$(this.el).prepend(this.header);
+						$(this.body).prepend(this.header);
 
 					}
 					
@@ -91,7 +93,7 @@
 					if (this.buttons.length) {
 						this.footer = $('<footer class="modal-footer" />');
 						
-						$(this.el).append(this.footer);
+						$(this.body).append(this.footer);
 		
 						for (var b in this.buttons) {
 							
@@ -109,10 +111,14 @@
 
 					if (this.options.width) {
 						$(this.el).css('width',this.options.width);
+						$(this.body).css('width',this.options.width);
+
 					}
 
 					if (this.options.height) {
 						$(this.el).css('height',this.options.height);
+						$(this.body).css('height',this.options.height);
+
 					}
 										
 				
@@ -228,7 +234,7 @@
 						$(this.el).find('.modal-body').css('max-height',target_height+'px');
 					}
 
-
+					$(this.el).addClass('open');
 					$(this).triggerHandler('opened');
 					// focus the primary button
 				
@@ -269,6 +275,8 @@
 					if (!this.visible) { 
 						return;
 					}
+					
+					$(this.el).removeClass('open');
 					$(this.el).remove();
 					if (this.children.length) {
 						for (var c in this.children) {
@@ -292,7 +300,7 @@
 				}
 				
 				Dialog.prototype.hide = function() {
-					$(this.el).hide();
+					$(this.el).removeClass('open');
 					this.visible = false;
 					overlay_manager.openDialogs--;
 					overlay_manager.tick();	
@@ -302,6 +310,7 @@
 				Dialog.prototype.show = function() {
 					overlay_manager.openDialogs++;
 					overlay_manager.tick();	
+					$(this.el).addClass('open');
 
 					$(this.el).show();
 					this.center();
